@@ -1,0 +1,22 @@
+syntax = "proto2";
+package myProto;
+
+message Player {
+	required Cord location = 1;
+	required string name = 2;
+
+	message Cord {
+		required float x = 1;
+		required float y = 2;
+	}
+}
+
+message AllPlayers {
+	map<string, Player> playerMap = 1;
+}
+
+service updateState {
+	rpc update (Player) returns (AllPlayers) {}
+	rpc join (Player) returns (AllPlayers) {}
+	rpc leave (Player) returns (AllPlayers) {}
+}
