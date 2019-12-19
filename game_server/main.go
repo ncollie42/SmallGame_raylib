@@ -18,6 +18,19 @@ type server struct {
 	myProto.UnimplementedUpdateStateServer
 }
 
+func (s *server) ConstUpdate(stream myProto.UpdateState_ConstUpdateServer) error {
+	for {
+		t := time.NewTicker(time.Second * 1)
+		for {
+			select {
+			case <-t.C:
+				stream.Send(&playerMap)
+			}
+		}
+	}
+	return nil
+}
+
 func (s *server) Join(ctx context.Context, p *myProto.Player) (*myProto.AllPlayers, error) {
 	log.Printf("player %s joined", p.GetName())
 	playerMap.PlayerMap[p.GetName()] = p

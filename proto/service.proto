@@ -19,4 +19,5 @@ service updateState {
 	rpc update (Player) returns (AllPlayers) {}
 	rpc join (Player) returns (AllPlayers) {}
 	rpc leave (Player) returns (AllPlayers) {}
+	rpc constUpdate (stream Player) returns (stream AllPlayers) {}
 }
